@@ -1,0 +1,30 @@
+print_board
+
+get_user_input
+
+main
+
+mark_field
+test_field (cannot test marked fields)
+
+create board
+    place mines
+    place clue numbers
+
+board = [row[fields], row[fields]]
+
+field
+    hidden
+    mine
+    clue_number
+    marked
+
+game_over_lost
+    show whole board
+    show exploded mine
+
+game_over_won
+
+test_if_won
+
+unhide_fields - recursion?
