@@ -1,3 +1,5 @@
+import itertools
+import random
 from dataclasses import dataclass
 
 
@@ -14,13 +16,30 @@ class Board:
         self.rows = rows
         self.columns = columns
         self.mines = mines
+        self.board = []
+        self._create_board()
 
-    def create_board(self) -> None:
-        def place_mines(self) -> None:
-            pass
+    def _place_mines(self) -> None:
+        all_field_coordinates = tuple(
+            itertools.product(range(self.rows), range(self.columns))
+        )
+        for row, column in random.sample(all_field_coordinates, k=self.mines):
+            self.board[row][column].mine = True
 
-        def place_clues(self) -> None:
-            pass
+    def _place_clues(self) -> None:
+        pass
+
+    def _create_board_fields(self) -> None:
+        for _ in range(self.rows):
+            row = []
+            for _ in range(self.columns):
+                row.append(Field())
+            self.board.append(row)
+
+    def _create_board(self) -> None:
+        self._create_board_fields()
+        self._place_mines()
+        self._place_clues()
 
     def print_board(self) -> None:
         pass
