@@ -1,3 +1,4 @@
+board = [row[fields], row[fields]]
 print_board
 create board
     place mines
@@ -7,19 +8,19 @@ field
     mine
     clue_number
     marked
-unhide_fields - recursion?
 mark_field
+
+unhide_fields - recursion?
 
 
 
 get_user_input
-
 main
 
 
 test_field (cannot test marked fields)
 
-board = [row[fields], row[fields]]
+
 
 game_over_lost
     show whole board

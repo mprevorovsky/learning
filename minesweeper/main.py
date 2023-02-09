@@ -1,6 +1,10 @@
-import board
+import gameplay
 
-board = board.Board()
-board.print_board()
-board.unhide_all_fields()
-board.print_board()
+
+def main() -> None:
+    print("Welcome to the Minesweeper game!")
+    minefield = gameplay.create_board()
+    minefield.print_board()
+
+
+main()
