@@ -10,17 +10,13 @@ field
     marked
 mark_field
 
-unhide_fields - recursion?
-
-
-
 get_user_input
 main
 
 
 test_field (cannot test marked fields)
 
-
+unhide_fields - recursion?
 
 game_over_lost
     show whole board

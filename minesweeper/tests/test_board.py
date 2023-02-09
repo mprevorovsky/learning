@@ -1,4 +1,5 @@
 import unittest
+from unittest import mock
 from unittest.mock import call, patch
 
 import board
@@ -111,21 +112,21 @@ class TestBoard(unittest.TestCase):
             clues.append(row_clues)
         self.assertEqual(clues, expected_clues)
 
-    @patch("board.print")
-    def test_print_board(self, mock_print) -> None:
+    def test_print_board(self) -> None:
         sample_board = board.Board(rows=1, columns=1, mines=0)
-        sample_board.print_board()
-        self.assertEqual(
-            mock_print.mock_calls,
-            [
-                call(" |", end=""),
-                call("0|", end=""),
-                call(),
-                call("0|", end=""),
-                call("█|", end=""),
-                call(),
-            ],
-        )
+        with patch("builtins.print") as mock_print:
+            sample_board.print_board()
+            self.assertEqual(
+                mock_print.mock_calls,
+                [
+                    call(" |", end=""),
+                    call("0|", end=""),
+                    call(),
+                    call("0|", end=""),
+                    call("█|", end=""),
+                    call(),
+                ],
+            )
 
 
 if __name__ == "__main__":

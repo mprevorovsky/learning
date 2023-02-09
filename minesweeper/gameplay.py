@@ -19,6 +19,10 @@ def get_board_parameter(message: str, minimum: int, maximum: int) -> int:
     return number
 
 
+def get_action() -> str:
+    pass
+
+
 def create_board() -> board.Board:
     rows = get_board_parameter("Input the number of rows: ", MIN_ROWS, MAX_ROWS)
     columns = get_board_parameter(
@@ -26,3 +30,7 @@ def create_board() -> board.Board:
     )
     mines = get_board_parameter("Input the number of mines: ", 1, rows * columns)
     return board.Board(rows, columns, mines)
+
+
+def do_turn(minefield: board.Board) -> None:
+    pass
