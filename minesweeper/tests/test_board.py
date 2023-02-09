@@ -70,21 +70,31 @@ class TestBoard(unittest.TestCase):
         self.assertEqual(mines, mine_number)
         self.assertEqual(hidden, row_number * column_number)
 
-    def test_unhide_fields(self) -> None:
+    def test_unhide_field(self) -> None:
         sample_board = board.Board(rows=5, columns=5)
-        sample_board.unhide_fields()
+        sample_board.unhide_field(sample_board.board[3][3])
+        self.assertFalse(sample_board.board[3][3].hidden)
+
+    def test_unhide_all_fields(self) -> None:
+        sample_board = board.Board(rows=5, columns=5)
+        sample_board.unhide_all_fields()
         hidden = 0
         for row in sample_board.board:
             for field in row:
                 hidden += field.hidden
         self.assertEqual(hidden, 0)
 
+    def test_mark_field(self) -> None:
+        sample_board = board.Board(rows=5, columns=5)
+        sample_board.mark_field(sample_board.board[3][3])
+        self.assertTrue(sample_board.board[3][3].marked)
+
     def test_mine_clue_placement(self) -> None:
-        # mines
-        #   012
-        # 0 M__
-        # 1 __M
-        # 2 ___
+        # mines:
+        #    012
+        #  0 M__
+        #  1 __M
+        #  2 ___
 
         rows = 3
         columns = 3

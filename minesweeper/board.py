@@ -86,7 +86,13 @@ class Board:
                 print(f"{self.board[i][j].get_printing_representation()}|", end="")
             print()
 
-    def unhide_fields(self) -> None:
+    def unhide_field(self, field: Field) -> None:
+        field.hidden = False
+
+    def unhide_all_fields(self) -> None:
         for row in self.board:
             for field in row:
-                field.hidden = False
+                self.unhide_field(field)
+
+    def mark_field(self, field: Field) -> None:
+        field.marked = True

@@ -8,7 +8,7 @@ field
     clue_number
     marked
 unhide_fields - recursion?
-
+mark_field
 
 
 
@@ -16,7 +16,7 @@ get_user_input
 
 main
 
-mark_field
+
 test_field (cannot test marked fields)
 
 board = [row[fields], row[fields]]
