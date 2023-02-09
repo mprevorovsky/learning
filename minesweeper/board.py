@@ -12,6 +12,7 @@ class Field:
 
     HIDDEN_CHAR = "█"
     MINE_CHAR = "\033[91m" + "X" + "\033[0m"
+    EXPLODED_MINE_CHAR = "\033[91m" + "X" + "\033[0m"
     MARKED_CHAR = "\033[93m" + "M" + "\033[0m"
     EMPTY_CHAR = " "
 

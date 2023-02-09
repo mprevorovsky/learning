@@ -20,7 +20,7 @@ class TestGameplay(unittest.TestCase):
                 mock_print.mock_calls,
                 [
                     call("Error: invalid literal for int() with base 10: 'w'"),
-                    call("Error: Number not within limits!"),
+                    call("Error: Number not within limits: '30'"),
                 ],
             )
             self.assertEqual(number, 3)
