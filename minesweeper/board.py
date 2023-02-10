@@ -40,6 +40,13 @@ class Board:
         self._place_mines()
         self._place_clues()
 
+    def _create_board_fields(self) -> None:
+        for _ in range(self.rows):
+            row = []
+            for _ in range(self.columns):
+                row.append(Field())
+            self.board.append(row)
+
     def _place_mines(self) -> None:
         all_field_coordinates = tuple(
             itertools.product(range(self.rows), range(self.columns))
@@ -69,13 +76,6 @@ class Board:
                 if field[0] in range(self.rows) and field[1] in range(self.columns):
                     self.board[field[0]][field[1]].clue += 1
 
-    def _create_board_fields(self) -> None:
-        for _ in range(self.rows):
-            row = []
-            for _ in range(self.columns):
-                row.append(Field())
-            self.board.append(row)
-
     def print_board(self) -> None:
         print(" |", end="")
         for j in range(self.columns):
@@ -87,13 +87,30 @@ class Board:
                 print(f"{self.board[i][j].get_printing_representation()}|", end="")
             print()
 
-    def unhide_field(self, field: Field) -> None:
-        field.hidden = False
+    def _unhide_field(self, row: int, column: int) -> None:
+        self.board[row][column].hidden = False
 
     def unhide_all_fields(self) -> None:
-        for row in self.board:
-            for field in row:
-                self.unhide_field(field)
+        for row in range(self.rows):
+            for column in range(self.columns):
+                self._unhide_field(row, column)
 
-    def mark_field(self, field: Field) -> None:
-        field.marked = True
+    def toggle_field_marked(self, row: int, column: int) -> None:
+        field = self.board[row][column]
+        if not field.hidden:
+            raise ValueError("Error: Only hidden fields may be (un)marked.")
+        elif field.marked:
+            field.marked = False
+        else:
+            field.marked = True
+
+    def test_field(self, row: int, column: int) -> bool:
+        field = self.board[row][column]
+        if field.marked or not field.hidden:
+            raise ValueError("Error: Only unmarked hidden fields can be tested.")
+        elif field.mine:
+            exploded = True
+        else:
+            exploded = False
+            field.hidden = False  # TO DO unhide whole surrounding region
+        return exploded

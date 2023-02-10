@@ -2,13 +2,18 @@ import os
 
 import gameplay
 
+MIN_ROWS = 1
+MAX_ROWS = 10
+MIN_COLUMNS = 1
+MAX_COLUMNS = 10
+
 
 def main() -> None:
     os.system("clear")
     print("Welcome to the Minesweeper game!")
-    minefield = gameplay.create_board()
+    minesweeper = gameplay.Gameplay(MIN_ROWS, MAX_ROWS, MIN_COLUMNS, MAX_COLUMNS)
     while True:
-        gameplay.do_turn(minefield)
+        minesweeper.do_turn()
 
 
 main()

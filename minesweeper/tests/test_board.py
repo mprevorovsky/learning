@@ -73,7 +73,7 @@ class TestBoard(unittest.TestCase):
 
     def test_unhide_field(self) -> None:
         sample_board = board.Board(rows=5, columns=5)
-        sample_board.unhide_field(sample_board.board[3][3])
+        sample_board._unhide_field(3, 3)
         self.assertFalse(sample_board.board[3][3].hidden)
 
     def test_unhide_all_fields(self) -> None:
@@ -87,8 +87,13 @@ class TestBoard(unittest.TestCase):
 
     def test_mark_field(self) -> None:
         sample_board = board.Board(rows=5, columns=5)
-        sample_board.mark_field(sample_board.board[3][3])
+        sample_board.toggle_field_marked(3, 3)
         self.assertTrue(sample_board.board[3][3].marked)
+        sample_board.toggle_field_marked(3, 3)
+        self.assertFalse(sample_board.board[3][3].marked)
+        sample_board._unhide_field(3, 3)
+        with self.assertRaises(ValueError):
+            sample_board.toggle_field_marked(3, 3)
 
     def test_mine_clue_placement(self) -> None:
         # mines:
@@ -127,6 +132,15 @@ class TestBoard(unittest.TestCase):
                     call(),
                 ],
             )
+
+    def test_test_field(self) -> None:
+        sample_board = board.Board(rows=1, columns=1, mines=1)
+        self.assertTrue(sample_board.test_field(0, 0))
+        sample_board = board.Board(rows=1, columns=1, mines=0)
+        self.assertFalse(sample_board.test_field(0, 0))
+        sample_board.unhide_all_fields()
+        with self.assertRaises(ValueError):
+            sample_board.test_field(0, 0)
 
 
 if __name__ == "__main__":
