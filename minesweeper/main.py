@@ -2,9 +2,9 @@ import os
 
 import gameplay
 
-MIN_ROWS = 1
+MIN_ROWS = 2
 MAX_ROWS = 10
-MIN_COLUMNS = 1
+MIN_COLUMNS = 2
 MAX_COLUMNS = 10
 
 
@@ -16,4 +16,5 @@ def main() -> None:
         minesweeper.do_turn()
 
 
-main()
+if __name__ == "__main__":
+    main()

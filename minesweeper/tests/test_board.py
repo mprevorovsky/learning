@@ -142,6 +142,19 @@ class TestBoard(unittest.TestCase):
         with self.assertRaises(ValueError):
             sample_board.test_field(0, 0)
 
+    def test_unhide_neighbor_fields(self) -> None:
+        sample_board = board.Board(rows=3, columns=3, mines=0)
+        sample_board.board[0][0].mine = True
+        sample_board._place_clues()
+        sample_board._unhide_neighbor_fields(1, 1)
+        self.assertTrue(sample_board.board[0][0].hidden)
+        unhidden_fields = 0
+        for row in sample_board.board:
+            for field in row:
+                if not field.hidden:
+                    unhidden_fields += 1
+        self.assertEqual(unhidden_fields, 8)
+
 
 if __name__ == "__main__":
     unittest.main()

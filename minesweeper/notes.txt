@@ -1,3 +1,8 @@
+- unittests for gameplay
+?? cancel mark/test selection
+
+
+
 board = [row[fields], row[fields]]
 print_board
 create board
@@ -12,8 +17,6 @@ mark_field
 
 get_user_input
 main
-
-
 
 test_field (cannot test marked fields)
 

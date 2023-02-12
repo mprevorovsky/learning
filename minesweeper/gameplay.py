@@ -53,19 +53,19 @@ class Gameplay:
             self.MAX_COLUMNS,
         )
         mines = _get_board_parameter(
-            f"Input the number of mines ({1}-{rows * columns}): ", 1, rows * columns
+            f"Input the number of mines (1-{rows * columns}): ", 1, rows * columns
         )
         return board.Board(rows, columns, mines)
 
-    def _get_field_coordinates(self) -> Tuple[int, int]:
+    def _get_field_coordinates(self) -> tuple[int, int]:
         row = _get_board_parameter(
-            f"Select row ({self.MIN_ROWS - 1}-{self.minefield.rows - 1}): ",
-            self.MIN_ROWS - 1,
+            f"Select row (0-{self.minefield.rows - 1}): ",
+            0,
             self.minefield.rows - 1,
         )
         column = _get_board_parameter(
-            f"Select column ({self.MIN_COLUMNS - 1}-{self.minefield.columns - 1}): ",
-            self.MIN_COLUMNS - 1,
+            f"Select column (0-{self.minefield.columns - 1}): ",
+            0,
             self.minefield.columns - 1,
         )
         return row, column
@@ -74,11 +74,11 @@ class Gameplay:
         unhidden_fields = 0
         for row in self.minefield.board:
             for field in row:
-                if not field.hidden and not field.mine:
+                if not field.hidden:
                     unhidden_fields += 1
         return (
-            unhidden_fields
-            == self.minefield.rows * self.minefield.columns - self.minefield.mines
+            unhidden_fields + self.minefield.mines
+            == self.minefield.rows * self.minefield.columns
         )
 
     def _finish_game(self, message: str) -> None:
@@ -96,11 +96,9 @@ class Gameplay:
         )
         row, column = self._get_field_coordinates()
         exploded = False
-        won = False
         try:
             if action == "t":
                 exploded = self.minefield.test_field(row, column)
-                won = self._test_if_won()
             elif action == "m":
                 self.minefield.toggle_field_marked(row, column)
         except ValueError as error:
@@ -108,6 +106,9 @@ class Gameplay:
             time.sleep(3)
         else:
             if exploded:
-                self._finish_game("A mine has exploded! Game over...")
-            if won:
+                self._finish_game(
+                    f"A mine has exploded at {row},{column}! Game over..."
+                )
+
+            if self._test_if_won():
                 self._finish_game("Congratulations, you won!")

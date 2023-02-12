@@ -54,27 +54,37 @@ class Board:
         for row, column in random.sample(all_field_coordinates, k=self.mines):
             self.board[row][column].mine = True
 
+    def _get_neighbor_positions(self, row: int, column: int) -> list[list[int]]:
+        all_neighbor_positions = [
+            [row - 1, column - 1],
+            [row - 1, column],
+            [row - 1, column + 1],
+            [row, column - 1],
+            [row, column + 1],
+            [row + 1, column - 1],
+            [row + 1, column],
+            [row + 1, column + 1],
+        ]
+        valid_neighbor_positions = []
+        for neighbor_row, neighbor_column in all_neighbor_positions:
+            if neighbor_row in range(self.rows) and neighbor_column in range(
+                self.columns
+            ):
+                valid_neighbor_positions.append([neighbor_row, neighbor_column])
+
+        return valid_neighbor_positions
+
     def _place_clues(self) -> None:
-        mine_fields = []
+        mine_positions = []
         for row in range(self.rows):
             for column in range(self.columns):
                 if self.board[row][column].mine:
-                    mine_fields.append([row, column])
+                    mine_positions.append([row, column])
 
-        for row, column in mine_fields:
-            neighbor_fields = [
-                [row - 1, column - 1],
-                [row - 1, column],
-                [row - 1, column + 1],
-                [row, column - 1],
-                [row, column + 1],
-                [row + 1, column - 1],
-                [row + 1, column],
-                [row + 1, column + 1],
-            ]
-            for field in neighbor_fields:
-                if field[0] in range(self.rows) and field[1] in range(self.columns):
-                    self.board[field[0]][field[1]].clue += 1
+        for row, column in mine_positions:
+            neighbor_positions = self._get_neighbor_positions(row, column)
+            for neighbor_row, neighbor_column in neighbor_positions:
+                self.board[neighbor_row][neighbor_column].clue += 1
 
     def print_board(self) -> None:
         print(" |", end="")
@@ -89,6 +99,23 @@ class Board:
 
     def _unhide_field(self, row: int, column: int) -> None:
         self.board[row][column].hidden = False
+
+    def _unhide_neighbor_fields(self, row: int, column: int) -> None:
+        neighbor_positions = self._get_neighbor_positions(row, column)
+        for neighbor_row, neighbor_column in neighbor_positions:
+            if (
+                self.board[neighbor_row][neighbor_column].hidden
+                and self.board[neighbor_row][neighbor_column].clue > 0
+                and not self.board[neighbor_row][neighbor_column].mine
+            ):
+                self.board[neighbor_row][neighbor_column].hidden = False
+            elif (
+                self.board[neighbor_row][neighbor_column].hidden
+                and self.board[neighbor_row][neighbor_column].clue == 0
+                and not self.board[neighbor_row][neighbor_column].mine
+            ):
+                self.board[neighbor_row][neighbor_column].hidden = False
+                self._unhide_neighbor_fields(neighbor_row, neighbor_column)
 
     def unhide_all_fields(self) -> None:
         for row in range(self.rows):
@@ -112,5 +139,6 @@ class Board:
             exploded = True
         else:
             exploded = False
-            field.hidden = False  # TO DO unhide whole surrounding region
+            field.hidden = False
+            self._unhide_neighbor_fields(row, column)
         return exploded
