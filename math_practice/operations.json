@@ -1,0 +1,28 @@
+{
+  "operation_modules": [
+    "operations.addition_up_to_n",
+    "operations.subtraction_up_to_20"
+  ],
+  "operations": [
+    {
+      "name": "AdditionUpTo20",
+      "module": "operations.addition_up_to_n",
+      "min_number": 0,
+      "max_number": 20
+    },
+    {
+      "name": "SubtractionUpTo20_DoNotCross10",
+      "module": "operations.subtraction_up_to_20",
+      "min_number": 0,
+      "max_number": 20,
+      "cross_ten": false
+    },
+    {
+      "name": "SubtractionUpTo20",
+      "module": "operations.subtraction_up_to_20",
+      "min_number": 0,
+      "max_number": 20,
+      "cross_ten": true
+    }
+  ]
+}
