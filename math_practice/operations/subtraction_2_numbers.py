@@ -3,7 +3,7 @@ import random
 import operations_factory
 
 
-class SubtractionUpTo20:
+class Subtraction:
     def __init__(
         self,
         max_number: int = 20,
@@ -24,4 +24,4 @@ class SubtractionUpTo20:
 
 
 def register() -> None:
-    operations_factory.register("subtraction_up_to_20", SubtractionUpTo20)
+    operations_factory.register("subtraction_2_numbers", Subtraction)

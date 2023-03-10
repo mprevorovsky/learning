@@ -3,10 +3,10 @@ import random
 import operations_factory
 
 
-class AddingUpToN:
+class Addition:
     def __init__(
         self,
-        max_number: int,
+        max_number: int = 20,
         min_number: int = 0,
     ) -> None:
         self.MIN_NUMBER = min_number
@@ -19,4 +19,4 @@ class AddingUpToN:
 
 
 def register() -> None:
-    operations_factory.register("adding_up_to_n", AddingUpToN)
+    operations_factory.register("addition_2_numbers", Addition)

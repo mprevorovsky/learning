@@ -1,25 +1,22 @@
 {
   "operation_modules": [
-    "operations.addition_up_to_n",
-    "operations.subtraction_up_to_20"
+    "operations.addition_2_numbers",
+    "operations.subtraction_2_numbers"
   ],
   "operations": [
     {
-      "name": "AdditionUpTo20",
-      "module": "operations.addition_up_to_n",
+      "operation_type": "addition_2_numbers",
       "min_number": 0,
       "max_number": 20
     },
     {
-      "name": "SubtractionUpTo20_DoNotCross10",
-      "module": "operations.subtraction_up_to_20",
+      "operation_type": "subtraction_2_numbers",
       "min_number": 0,
       "max_number": 20,
       "cross_ten": false
     },
     {
-      "name": "SubtractionUpTo20",
-      "module": "operations.subtraction_up_to_20",
+      "operation_type": "subtraction_2_numbers",
       "min_number": 0,
       "max_number": 20,
       "cross_ten": true

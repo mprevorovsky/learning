@@ -1,5 +1,8 @@
+from typing import Callable
+
 import PyQt5.QtWidgets as pqw
 import PyQt5.uic as pqu
+from operations_factory import Operation
 
 SYMBOL_WRONG = "🐷"
 SYMBOL_OK = "💙"  # "🍭"
@@ -7,13 +10,14 @@ TASKS = 7
 
 
 class Window(pqw.QWidget):
-    def __init__(self) -> None:
+    def __init__(self, operations: dict[str, Callable[..., Operation]]) -> None:
         super().__init__()
         self.task_counter = 1
         self.ok_counter = 0
         self.wrong_counter = 0
         self.score = ""
-        self.equation, self.result = self._generate_equation()
+        self.operations = operations
+        self.equation, self.result = self.operations._generate_equation()
 
         self._setup()
         self.label_equation.setText(self.equation)
