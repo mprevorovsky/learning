@@ -2,6 +2,7 @@ from typing import Callable
 
 import PyQt5.QtWidgets as pqw
 import PyQt5.uic as pqu
+import equations
 from operations_factory import Operation
 
 SYMBOL_WRONG = "🐷"
@@ -17,7 +18,7 @@ class Window(pqw.QWidget):
         self.wrong_counter = 0
         self.score = ""
         self.operations = operations
-        self.equation, self.result = self.operations._generate_equation()
+        self.equation, self.result = equations.generate_equation(self.operations)
 
         self._setup()
         self.label_equation.setText(self.equation)

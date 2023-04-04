@@ -14,9 +14,9 @@ def main() -> None:
     plugin_loader.load_plugins(plugin_data["operation_modules"])
 
     operations = [operations_factory.create(item) for item in plugin_data["operations"]]
-
+    
     app = pqw.QApplication(sys.argv)
-    window = gui.Window()
+    window = gui.Window(operations)
     app.exec_()
 
 
